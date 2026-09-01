@@ -1,15 +1,14 @@
 import { config, modelById } from "./config.js";
-import { DEMO_USER_PROMPT } from "./demo/demo-message.js";
 import { streamOpenRouter } from "./openrouter.js";
 import { render_index } from "./skills-runtime.js";
 import { SYSTEM_PROMPT } from "./system-prompt.js";
 import { SKILLS, TOOLS, TOOL_DEFINITIONS } from "./tool-catalog.js";
 
-export { DEMO_USER_PROMPT, SKILLS, SYSTEM_PROMPT, TOOLS, TOOL_DEFINITIONS };
+export { SKILLS, TOOL_DEFINITIONS };
 
 export const SKILLS_INDEX = render_index(SKILLS);
 
-export const AGENT_SYSTEM_PROMPT = `${SYSTEM_PROMPT}\n\n${SKILLS_INDEX}`;
+const AGENT_SYSTEM_PROMPT = `${SYSTEM_PROMPT}\n\n${SKILLS_INDEX}`;
 
 const histories = new Map();
 const loadedSkillsBySession = new Map();
@@ -65,10 +64,6 @@ export function clearSession(sessionId) {
   histories.delete(sessionId);
   loadedSkillsBySession.delete(sessionId);
   modelBySession.delete(sessionId);
-}
-
-export function getSessionHistory(sessionId) {
-  return structuredClone(histories.get(sessionId) || []);
 }
 
 export async function runAgentLoop({

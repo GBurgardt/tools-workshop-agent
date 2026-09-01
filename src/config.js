@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -33,20 +33,19 @@ function env(name, fallback = "") {
 }
 
 const dataDir = resolve(ROOT, env("TOOLS_WORKSHOP_DATA_DIR", "data"));
-mkdirSync(dataDir, { recursive: true });
 
-export const MODELS = Object.freeze([
-  Object.freeze({
+export const MODELS = [
+  {
     id: "deepseek-flash",
     label: "DeepSeek V4 Flash",
     openrouterId: "~deepseek/deepseek-v4-flash-latest",
-  }),
-  Object.freeze({
+  },
+  {
     id: "claude-sonnet",
     label: "Claude Sonnet",
     openrouterId: "anthropic/claude-sonnet-5",
-  }),
-]);
+  },
+];
 
 export function modelById(modelId) {
   const model = MODELS.find(
@@ -60,17 +59,17 @@ export function modelById(modelId) {
 
 const defaultModel = modelById(env("TOOLS_WORKSHOP_MODEL", "deepseek-flash"));
 
-export const config = Object.freeze({
+export const config = {
   root: ROOT,
   port: Number.parseInt(env("TOOLS_WORKSHOP_PORT", "4317"), 10) || 4317,
   defaultModel,
   models: MODELS,
-  openrouter: Object.freeze({
+  openrouter: {
     apiKey: env("OPENROUTER_API_KEY"),
     baseUrl: env("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
     referer: env("OPENROUTER_HTTP_REFERER", "http://localhost:4317"),
     title: env("OPENROUTER_X_TITLE", "CloudX Skills Workshop"),
-  }),
+  },
   perplexityApiKey: env("PERPLEXITY_API_KEY", env("PPLX_API_KEY")),
   notesPath: join(dataDir, "notes.json"),
-});
+};

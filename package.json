@@ -9,12 +9,6 @@
   },
   "scripts": {
     "start": "node --watch src/server.js",
-    "test": "node test/test-runner.js",
-    "test:unit": "node --test test/server.test.js test/tools.test.js test/tool-designs.test.js",
-    "demo:tool-bad": "TOOL_DESIGN_MODE=bad node test/tool-design-comparison.js",
-    "demo:tool-good": "TOOL_DESIGN_MODE=good node test/tool-design-comparison.js",
-    "demo:tool-active": "TOOL_DESIGN_MODE=active node test/tool-design-comparison.js",
-    "demo:tool-comparison": "node test/tool-design-comparison.js",
-    "demo:note-backup": "node test/note-tool-design-comparison.js"
+    "test": "node --test test/server.test.js test/tools.test.js test/agent.test.js"
   }
 }

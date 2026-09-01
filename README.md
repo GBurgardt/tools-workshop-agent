@@ -24,23 +24,6 @@ npm start
 
 Abrí [http://localhost:4317](http://localhost:4317).
 
-## Probar las demos
-
-Tools:
-
-```text
-Buscá 10 fuentes sobre diseño de tools. Si falla, reintentá sólo con el máximo que informe la tool.
-```
-
-Skills:
-
-```text
-¿Qué comen los patos azules y cuál es su código?
-```
-
-La segunda consulta carga primero la skill `patos` y después únicamente
-`references/patos-azules.md`.
-
 ## Verificar
 
 ```bash

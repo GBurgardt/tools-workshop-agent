@@ -1,25 +1,24 @@
-import { createHash } from "node:crypto";
 import { config } from "./config.js";
 
 const ENDPOINT = "https://api.perplexity.ai/search";
 const MAX_QUERY_CHARS = 600;
 const DEFAULT_TIMEOUT_MS = 20_000;
 
-export const SEARCH_WEB_INPUT_SCHEMA = Object.freeze({
+export const SEARCH_WEB_INPUT_SCHEMA = {
   type: "object",
-  properties: Object.freeze({
-    query: Object.freeze({
+  properties: {
+    query: {
       type: "string",
       minLength: 2,
       maxLength: MAX_QUERY_CHARS,
       description: "A focused, self-contained web search query.",
-    }),
-  }),
-  required: Object.freeze(["query"]),
+    },
+  },
+  required: ["query"],
   additionalProperties: false,
-});
+};
 
-export function normalizeWebSearchQuery(value) {
+function normalizeWebSearchQuery(value) {
   const query = String(value ?? "")
     .replace(/[\u0000-\u001F\u007F]/g, " ")
     .replace(/\s+/g, " ")
@@ -72,10 +71,6 @@ export async function searchWeb(
     };
   }
 
-  const started = Date.now();
-  const queryHash = createHash("sha256").update(query).digest("hex").slice(0, 12);
-  console.log(`[search_web] searching len=${query.length} hash=${queryHash}`);
-
   let response;
   try {
     response = await fetchImpl(ENDPOINT, {
@@ -93,9 +88,6 @@ export async function searchWeb(
     });
   } catch (error) {
     const aborted = error?.name === "AbortError" || error?.name === "TimeoutError";
-    console.error(
-      `[search_web] failed hash=${queryHash}: ${aborted ? "timeout/cancelled" : error.message}`
-    );
     return {
       ok: false,
       query,
@@ -107,11 +99,6 @@ export async function searchWeb(
   }
 
   if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    const bodyHash = createHash("sha256").update(body).digest("hex").slice(0, 12);
-    console.error(
-      `[search_web] Perplexity HTTP ${response.status} hash=${queryHash} bodyHash=${bodyHash}`
-    );
     return {
       ok: false,
       query,
@@ -133,6 +120,5 @@ export async function searchWeb(
     }))
     .filter((item) => item.title || item.url || item.snippet);
 
-  console.log(`[search_web] ${results.length} results in ${Date.now() - started}ms`);
   return { ok: true, query, results };
 }

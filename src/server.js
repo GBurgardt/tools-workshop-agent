@@ -4,7 +4,6 @@ import { extname, join, normalize } from "node:path";
 import { config } from "./config.js";
 import {
   clearSession,
-  DEMO_USER_PROMPT,
   runAgentTurn,
   SKILLS,
   SKILLS_INDEX,
@@ -117,7 +116,6 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
     console.log(`Tools: ${TOOL_DEFINITIONS.map((tool) => tool.name).join(", ")}`);
     console.log(`Skills in index: [${Object.keys(SKILLS).map((name) => `'${name}'`).join(", ")}]`);
     console.log(`Index: ~${Math.floor(SKILLS_INDEX.length / 4)} tokens in the system prompt`);
-    console.log(`Demo prompt: ${DEMO_USER_PROMPT}`);
     console.log(`\n${SKILLS_INDEX}\n`);
   });
 }
