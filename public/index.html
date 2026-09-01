@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#512646" />
+    <meta
+      name="description"
+      content="CloudX agent with tools, skills, and selectable models."
+    />
+    <title>CloudX Agent</title>
+    <link rel="icon" href="/cloudx-favicon.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="CloudX Agent">
+          <span class="wordmark">cloud<span>(x)</span></span>
+        </div>
+        <label class="model-picker" for="model-select">
+          <select id="model-select" aria-label="Model">
+            <option>Loading…</option>
+          </select>
+        </label>
+        <button class="icon-button" id="reset-button" type="button" aria-label="New conversation" title="New conversation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+        </button>
+      </header>
+
+      <section class="workspace">
+        <section class="chat-pane" aria-label="Agent chat">
+          <div class="messages" id="messages" role="log" aria-live="polite"></div>
+
+          <form class="composer-wrap" id="composer">
+            <div class="activity-indicator" id="activity-indicator" role="status" aria-live="polite" hidden>
+              <span class="activity-spinner" aria-hidden="true"></span>
+              <span id="activity-label">Working…</span>
+            </div>
+            <div class="composer">
+              <label class="sr-only" for="message-input">Message</label>
+              <textarea
+                id="message-input"
+                rows="1"
+                maxlength="12000"
+                placeholder="Ask the agent anything…"
+                autocomplete="off"
+              ></textarea>
+              <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-4.5 14-3-5.5L5 12Zm6.5 1.5L19 5" /></svg>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="tool-rail" aria-label="Tool activity">
+          <div class="live-trace">
+            <div class="trace-header">
+              <span>race</span>
+            </div>
+            <div id="rail-trace" class="rail-trace">
+              <p class="trace-empty">Tool calls will appear here.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
