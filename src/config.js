@@ -26,9 +26,12 @@ function readEnvFile(path) {
 }
 
 const localEnv = readEnvFile(join(ROOT, ".env"));
+// Preserve the personal Mac fallback; local values always take priority.
+const seedEnvPath = process.env.TOOLS_WORKSHOP_SEED_ENV || join(ROOT, "..", "broker-agent", ".env");
+const seedEnv = readEnvFile(seedEnvPath);
 
 function env(name, fallback = "") {
-  const value = process.env[name] ?? localEnv[name] ?? fallback;
+  const value = process.env[name] ?? localEnv[name] ?? seedEnv[name] ?? fallback;
   return String(value).trim();
 }
 

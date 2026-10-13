@@ -4,4 +4,5 @@ TOOLS:
 - search_web: investigación pública y actual.
 - notes: guardar, listar, buscar y borrar notas locales.
 - load_skill: cargar las instrucciones completas de una skill cuando la tarea coincide.
-- read_skill_file: leer un archivo adicional cuando una skill lo pide.`;
+- read_skill_file: leer un archivo adicional cuando una skill lo pide.
+- run_subagent: delegar investigación a researcher; recibe un encargo completo y devuelve un informe.`;

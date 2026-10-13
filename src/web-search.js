@@ -18,7 +18,7 @@ export const SEARCH_WEB_INPUT_SCHEMA = {
   additionalProperties: false,
 };
 
-function normalizeWebSearchQuery(value) {
+export function normalizeWebSearchQuery(value) {
   const query = String(value ?? "")
     .replace(/[\u0000-\u001F\u007F]/g, " ")
     .replace(/\s+/g, " ")

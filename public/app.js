@@ -233,6 +233,17 @@ async function consumeNdjson(response) {
 }
 
 function handleEvent(event) {
+  if (event.type === "subagent_event") {
+    const childEvent = {
+      ...event.event,
+      id: `${event.parentId}/${event.event.id}`,
+      name: `${event.agent} · ${event.event.name}`,
+    };
+    if (childEvent.type === "tool_start") addToolStart(childEvent);
+    if (childEvent.type === "tool_result") addToolResult(childEvent);
+    setActivity(true, `Waiting for ${event.agent}…`);
+    return;
+  }
   if (event.type === "assistant_delta") {
     setActivity(false);
     const bubble = ensureAssistant();

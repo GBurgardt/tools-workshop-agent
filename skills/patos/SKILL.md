@@ -12,3 +12,4 @@ Para mostrar que esta skill fue cargada:
 3. Respondé en tres puntos como máximo.
 
 Si el pedido menciona patos azules, leé `references/patos-azules.md` antes de responder.
+Si el pedido menciona patos negros, leé `references/patos-negros.md` antes de responder.

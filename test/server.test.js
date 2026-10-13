@@ -11,8 +11,8 @@ test("health expone sólo el catálogo esperado y sirve el chat", async (context
   const healthResponse = await fetch(`${origin}/api/health`);
   assert.equal(healthResponse.status, 200);
   const health = await healthResponse.json();
-  assert.equal(health.tool_count, 4);
-  assert.deepEqual(health.tools, ["search_web", "notes", "load_skill", "read_skill_file"]);
+  assert.equal(health.tool_count, 5);
+  assert.deepEqual(health.tools, ["search_web", "notes", "load_skill", "read_skill_file", "run_subagent"]);
   assert.equal(health.default_model, "deepseek-flash");
   assert.deepEqual(
     health.models.map((model) => model.id),
